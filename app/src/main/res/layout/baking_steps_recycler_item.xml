@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="1dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="7dp"
+    app:contentPadding="7dp"
+    app:cardMaxElevation="7dp"
+    android:layout_gravity="center"
+    android:layout_margin="7dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/baking_steps_relative_layout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/list_selector">
+
+        <TextView
+            android:id="@+id/baking_steps_shortDes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="20sp"
+            android:layout_centerVertical="true"
+            tools:text="Recipe Introduction"/>
+
+        <ImageView
+            android:id="@+id/baking_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_toEndOf="@id/baking_steps_shortDes"
+            android:layout_toRightOf="@id/baking_steps_shortDes"
+            android:layout_toLeftOf="@id/baking_arrow"
+            android:layout_toStartOf="@id/baking_arrow"
+            android:scaleType="centerCrop"/>
+
+</RelativeLayout>
+</android.support.v7.widget.CardView>
