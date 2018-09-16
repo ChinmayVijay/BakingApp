@@ -145,7 +145,7 @@ public class InstructionsActivity extends AppCompatActivity implements Instructi
 
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.instruction_direction_fragment_container,
-                            DirectionsFragment.newInstance(sList, -1),DIRECTION_FRAGMENT_TAG)
+                            DirectionsFragment.newInstance(sList, position),DIRECTION_FRAGMENT_TAG)
                     .commit();
 
         } else {
