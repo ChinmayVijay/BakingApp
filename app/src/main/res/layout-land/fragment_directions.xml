@@ -11,6 +11,16 @@
         android:id="@+id/simple_exo_play_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/direction"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="#000"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        tools:text="directions"/>
 
 
 </LinearLayout>

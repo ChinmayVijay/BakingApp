@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class DirectionsFragment extends Fragment {
     private static final String IS_FULLSCREEN = "is_fullscreen";
     private static final String IS_NULL = "is_null";
     private static final String EXO_CURRENT_POSITION = "current_position";
+    private static final String PLAYER_STATE = "player_state";
 
     private ArrayList<RecipeResponse.StepsBean> sList;
     private String videoUrl;
@@ -72,6 +74,7 @@ public class DirectionsFragment extends Fragment {
     private boolean isFullScreen = false;
     private boolean isNull;
     private boolean playerStopped = false;
+    private boolean isPlayWhenReady = false;
     private long playerStopPosition;
 
     public DirectionsFragment() {
@@ -87,11 +90,11 @@ public class DirectionsFragment extends Fragment {
 
         // Set true if nothing was selected,
         // needed in case in tablet mode
-        if(position == -1){
-            args.putBoolean(IS_NULL,true);
-        } else {
-            args.putBoolean(IS_NULL,false);
-        }
+//        if(position == -1){
+//            args.putBoolean(IS_NULL,true);
+//        } else {
+//            args.putBoolean(IS_NULL,false);
+//        }
 
         fragment.setArguments(args);
         return fragment;
@@ -102,10 +105,12 @@ public class DirectionsFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
         isNull = getArguments().getBoolean(IS_NULL);
+        Log.e("URI ERROR",isNull+"");
         if(!isNull) {
             sList = getArguments().getParcelableArrayList(STEPS_LIST);
             position = getArguments().getInt(POSITION);
         }
+
     }
 
     @Override
@@ -122,6 +127,7 @@ public class DirectionsFragment extends Fragment {
         } else {
             isFullScreen = savedInstanceState.getBoolean(IS_FULLSCREEN);
             exo_current_position = savedInstanceState.getLong(EXO_CURRENT_POSITION);
+            isPlayWhenReady = savedInstanceState.getBoolean(PLAYER_STATE);
         }
 
         if(!isNull) {
@@ -166,7 +172,7 @@ public class DirectionsFragment extends Fragment {
             } else {
                 assert mSimpleExoPlayerView != null;
                 mSimpleExoPlayerView.setVisibility(View.GONE);
-                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+//                getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
             }
         } else {
             // For tablet mode, if no direction selected hide layout
@@ -181,6 +187,10 @@ public class DirectionsFragment extends Fragment {
         super.onSaveInstanceState(outState);
         outState.putBoolean(IS_FULLSCREEN,isFullScreen);
         outState.putLong(EXO_CURRENT_POSITION,exoPlayer.getCurrentPosition());
+        isPlayWhenReady = exoPlayer.getPlayWhenReady();
+        //Review Comments [save the play state]
+        outState.putBoolean(PLAYER_STATE,isPlayWhenReady);
+
     }
 
     @Override
@@ -226,6 +236,8 @@ public class DirectionsFragment extends Fragment {
             } else {
                 exoPlayer.seekTo(playerStopPosition);
             }
+            //Review Comments [save the play state]
+            exoPlayer.setPlayWhenReady(isPlayWhenReady);
         }
     }
 

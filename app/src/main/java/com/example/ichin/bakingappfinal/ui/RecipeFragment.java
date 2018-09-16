@@ -45,8 +45,8 @@ public class RecipeFragment extends Fragment {
 
     @BindView(R.id.recipe_recyclerView)RecyclerView mRecyclerView;
     @BindView(R.id.main_progress_bar)ProgressBar mProgressBar;
-    @BindView(R.id.recipe_emptyView)TextView mEmptyView;
-    @BindView(R.id.recipe_coordinator_layout)CoordinatorLayout mCoordinatorLayout;
+    @Nullable @BindView(R.id.recipe_emptyView)TextView mEmptyView;
+    @Nullable @BindView(R.id.recipe_coordinator_layout)CoordinatorLayout mCoordinatorLayout;
 
     private List<RecipeResponse> recipeResponseList;
     private RecipeRecyclerAdapter adapter;
@@ -133,7 +133,10 @@ public class RecipeFragment extends Fragment {
                 });
 
                 mProgressBar.setVisibility(View.INVISIBLE);
-                mEmptyView.setVisibility(View.INVISIBLE);
+                if(mEmptyView!=null){
+
+                    mEmptyView.setVisibility(View.INVISIBLE);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -146,7 +149,10 @@ public class RecipeFragment extends Fragment {
         SimpleRequestSingleton.getInstance(getContext().getApplicationContext()).addToRequestQueue(recipeRequest);
 
         } else {
-            mEmptyView.setVisibility(View.VISIBLE);
+            if(mEmptyView!=null){
+
+                mEmptyView.setVisibility(View.INVISIBLE);
+            }
             mProgressBar.setVisibility(View.INVISIBLE);
 
             Snackbar snackbar = Snackbar.make(mCoordinatorLayout,
